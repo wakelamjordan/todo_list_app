@@ -1,0 +1,1 @@
+C:\> curl -X POST -H "Content-Type: application/json" https://localhost/api/login_check --data {\"email\": \"jwakelams@gmail.com\",\"security\": {\"credentials\": {\"password\": \"4321\"}}}
