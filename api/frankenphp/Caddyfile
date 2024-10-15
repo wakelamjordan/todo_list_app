@@ -19,6 +19,7 @@
 	}
 
 	root * /app/public
+	tls internal
 	encode zstd br gzip
 
 	mercure {
