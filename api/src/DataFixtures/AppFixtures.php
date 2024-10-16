@@ -11,11 +11,11 @@ use Symfony\Component\Routing\Loader\ObjectLoader;
 class AppFixtures extends Fixture
 {
     // private ObjectManager $manager;
-    private UserPasswordHasherInterface $passwordHasher;
+    // private UserPasswordHasherInterface $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordHasher = $passwordHasher;
+        // $this->passwordHasher = $passwordHasher;
     }
     public function load(ObjectManager $manager): void
     {

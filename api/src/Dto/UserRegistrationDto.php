@@ -2,6 +2,7 @@
 
 namespace App\Dto;
 
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
 

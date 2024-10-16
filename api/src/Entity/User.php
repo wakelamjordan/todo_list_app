@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Post;
+use App\Dto\UserRegistrationDto;
 use App\Repository\UserRepository;
+use App\State\UserRegistrationStateProcessor;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -11,6 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[Post(input: UserRegistrationDto::class,processor:UserRegistrationStateProcessor::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -33,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    private ?string $username = null;
+    // private ?string $username = null;
 
     public function getId(): ?int
     {
@@ -110,23 +114,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * Get the value of username
-     */ 
-    public function getUsername()
-    {
-        return $this->email;
-    }
+    // /**
+    //  * Get the value of username
+    //  */
+    // public function getUsername()
+    // {
+    //     return $this->email;
+    // }
 
-    /**
-     * Set the value of username
-     *
-     * @return  self
-     */ 
-    public function setUsername($username)
-    {
-        $this->email = $username;
+    // /**
+    //  * Set the value of username
+    //  *
+    //  * @return  self
+    //  */
+    // public function setUsername($username)
+    // {
+    //     $this->email = $username;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 }

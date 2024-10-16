@@ -15,6 +15,7 @@ services:
       MERCURE_URL: ${CADDY_MERCURE_URL:-http://php/.well-known/mercure}
       MERCURE_PUBLIC_URL: ${CADDY_MERCURE_PUBLIC_URL:-https://${SERVER_NAME:-localhost}/.well-known/mercure}
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeThisMercureHubJWTSecretKey!}
+      MAILER_DSN: 'smtp://maildev:1025'
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -37,7 +38,7 @@ services:
     environment:
       NEXT_PUBLIC_ENTRYPOINT: http://php
 
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   database:
     image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
@@ -49,16 +50,22 @@ services:
       - db_data:/var/lib/postgresql/data
       # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./api/docker/db/data:/var/lib/postgresql/data
-###< doctrine/doctrine-bundle ###
+  ###< doctrine/doctrine-bundle ###
 
-# Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
-###> symfony/mercure-bundle ###
-###< symfony/mercure-bundle ###
+  # Mercure is installed as a Caddy module, prevent the Flex recipe from installing another service
+  ###> symfony/mercure-bundle ###
+  ###< symfony/mercure-bundle ###
+  maildev:
+    image: maildev/maildev
+    container_name: maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
 
 volumes:
   caddy_data:
   caddy_config:
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   db_data:
 ###< doctrine/doctrine-bundle ###
 ###> symfony/mercure-bundle ###
